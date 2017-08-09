@@ -1,0 +1,8 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	background-image: url(//localhost:9000/img/google.png);
+}
