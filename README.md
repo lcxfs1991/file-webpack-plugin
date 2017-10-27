@@ -43,7 +43,12 @@ webpack.config.js
 	                        ]
 	                    }
 	                },
-	            ]
+	            ],
+				'done': function() {
+	            	// expose fs-extra and glob apis for developers
+	                var fs = this.fs;
+	                var glob = this.glob;
+	            },
 	        }),
 		]
 	}
@@ -76,3 +81,8 @@ If you wanna see demos, you can checkout `test/src`. Then run `npm run pretest` 
     	- to: file destination folder
     	- action: move => move files, copy => copy files
     	- options: [glob options](https://www.npmjs.com/package/glob#options)
+
+- `done`:
+    - is optional
+    - [Function]
+    - Function, the funciton is called when webpack dispatch `done` event which mean assets before emit. you can use `this.fs` and `this.glob` to use `fs-extra` and `glob` apis. 

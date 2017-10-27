@@ -27,6 +27,11 @@ function FileWebpackPlugin(options) {
 		this.afterEmitCallback = this.afterEmitCallback.bind(this);
 	}
 
+	if (_.isFunction(options['done'])) {
+		this.doneCallback =   options['done'] || emptyCallback;
+		this.doneCallback = this.doneCallback.bind(this);
+	}
+
 	if (_.isArray(options['emit'])) {
 		this.emitArray = options['emit'] || [];
 	}
@@ -56,6 +61,11 @@ FileWebpackPlugin.prototype.apply = function(compiler) {
 
 		this.processFiles(compiler, compilation, this.afterEmitArray);
 	    callback();
+	});
+
+	// done
+	compiler.plugin("done", () => {
+		this.doneCallback && this.doneCallback();
 	});
 
 };

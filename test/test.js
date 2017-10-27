@@ -46,11 +46,15 @@ describe('after-emit', function() {
 });
 
 describe('callback', function() {
-	it('=> after-emit & emit callback', function() {
+	it('=> after-emit & emit callback & done callback', function() {
 
         let pubFolder =  path.join(TEST, 'pub/after-emit3/webserver');
         let fileInfo = fs.readdirSync(pubFolder);
         expect(fileInfo).to.deep.equal(['index.html']);
+
+        let pubCdnFolder =  path.join(TEST, 'pub/after-emit3/cdn1');
+        let cssFileInfo = fs.readdirSync(pubCdnFolder);
+        expect(cssFileInfo).to.deep.equal(['index.css']);
 
         let devfolder =  path.join(TEST, 'dev/after-emit3/cdn/');
         let devFileInfo = fs.readdirSync(devfolder);

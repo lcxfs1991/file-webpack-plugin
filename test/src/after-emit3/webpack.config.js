@@ -120,6 +120,16 @@ module.exports = {
                     fs.moveSync(file, path.join(config.path.pub, '/after-emit3/webserver/', path.basename(file)));
                 });
                 
+            },
+            'done': function() {
+                var glob = this.glob,
+                    fs = this.fs;
+                var files = glob.sync(path.join(config.path.dist, '/after-emit3/css/js/*.css'));
+
+                files.forEach((file) => {
+                    fs.copySync(file, path.join(config.path.pub, '/after-emit3/cdn1/', path.basename(file)));
+                });
+                
             }
         }),
     ],
