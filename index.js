@@ -100,6 +100,13 @@ FileWebpackPlugin.prototype.processFiles = function(compiler, compilation, fileA
 				this.info(from + ' => ' + to);
 				
 				if (fs.existsSync(from)) {
+					if (fs.lstatSync(from).isDirectory()) {
+						fs.ensureDirSync(to);
+					}
+					else {
+						fs.ensureFileSync(to);
+					}
+					
 					actionFunc(from, to, { overwrite: true });
 				}
 
