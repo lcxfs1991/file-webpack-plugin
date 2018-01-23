@@ -4,7 +4,7 @@ offer extra file capacity for webpack
 
 [![NPM Version](https://img.shields.io/npm/v/file-webpack-plugin.svg?style=flat)](https://www.npmjs.com/package/file-webpack-plugin)
 [![Travis](https://img.shields.io/travis/lcxfs1991/file-webpack-plugin.svg)](https://travis-ci.org/lcxfs1991/file-webpack-plugin)
-[![AppVeyor](https://img.shields.io/appveyor/ci/lcxfs1991/file-webpack-plugin.svg)](https://ci.appveyor.com/project/lcxfs1991/file-webpack-plugin.svg)
+[![AppVeyor](https://img.shields.io/appveyor/ci/lcxfs1991/file-webpack-plugin.svg)](https://ci.appveyor.com/project/lcxfs1991/file-webpack-plugin)
 [![Deps](https://david-dm.org/lcxfs1991/file-webpack-plugin.svg)](https://david-dm.org/lcxfs1991/file-webpack-plugin)
 
 
