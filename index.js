@@ -9,7 +9,7 @@ const fs = require('fs-extra'),
       _ = require('lodash'),
       glob = require('glob'),
       chalk = require('chalk'),
-	  emptyCallback = function() {};
+      emptyCallback = function() {};
 
 function FileWebpackPlugin(options) {
 	this.fs = fs;
@@ -38,6 +38,10 @@ function FileWebpackPlugin(options) {
 
 	if (_.isArray(options['after-emit'])) {
 		this.afterEmitArray = options['after-emit'] || [];
+    }
+
+    if (_.isArray(options['done'])) {
+		this.doneArray = options['done'] || [];
 	}
 }
 
@@ -65,7 +69,9 @@ FileWebpackPlugin.prototype.apply = function(compiler) {
 
 	// done
 	compiler.plugin("done", () => {
-		this.doneCallback && this.doneCallback();
+        this.doneCallback && this.doneCallback();
+
+        this.processFiles(compiler, null, this.doneArray);
 	});
 
 };
@@ -80,25 +86,24 @@ FileWebpackPlugin.prototype.processFiles = function(compiler, compilation, fileA
 
 	if (fileArray) {
 		fileArray.forEach((item) => {
-		
 			item.options.cwd = item.options.cwd || compiler.context;
 
 			let actionFunc = item.action === 'move' ? fs.moveSync : fs.copySync,
 				files = glob.sync(item.from, item.options);
 
 			files.forEach((file) => {
-
 				let from = (path.isAbsolute(file)) ? file : path.join(item.options.cwd, file),
 				    to = path.join(item.to, path.relative(item.options.cwd, from));
 
+                // function for modifying to / from path
 				let modifyTo = item.modifyTo || null,
 					modifyFrom = item.modifyFrom || null;
 
 				to = (modifyTo) ? modifyTo(to) : to;
 				from = (modifyFrom) ? modifyFrom(from) : from;
 
-				this.info(from + ' => ' + to);
-				
+                this.info(path.resolve(from) + ' => ' + to);
+
 				if (fs.existsSync(from)) {
 					if (fs.lstatSync(from).isDirectory()) {
 						fs.ensureDirSync(to);
@@ -106,7 +111,7 @@ FileWebpackPlugin.prototype.processFiles = function(compiler, compilation, fileA
 					else {
 						fs.ensureFileSync(to);
 					}
-					
+
 					actionFunc(from, to, { overwrite: true });
 				}
 

@@ -85,5 +85,10 @@ If you wanna see demos, you can checkout `test/src`. Then run `npm run pretest` 
 
 - `done`:
     - is optional
-    - [Function]
+    - [Function|Array]
     - Function, the funciton is called when webpack dispatch `done` event which mean assets before emit. you can use `this.fs` and `this.glob` to use `fs-extra` and `glob` apis. 
+    - Array, each items should be object.
+    	- from: [glob](https://www.npmjs.com/package/glob) pattern 
+    	- to: file destination folder
+    	- action: move => move files, copy => copy files
+    	- options: [glob options](https://www.npmjs.com/package/glob#options)

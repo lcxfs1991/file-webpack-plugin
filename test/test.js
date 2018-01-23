@@ -104,3 +104,43 @@ describe('emit', function() {
 
   	});
 });
+
+
+describe('done', function() {
+    it('=> move files', function() {
+
+      let folder =  path.join(TEST, 'dist/done1');
+      let fileInfo = fs.readdirSync(folder);
+      expect(fileInfo).to.deep.equal(['cdn', 'webserver']);
+
+      let cdnFolder = path.join(TEST, 'dist/done1/cdn'),
+          cdnFileInfo = fs.readdirSync(cdnFolder);
+      expect(cdnFileInfo).to.deep.equal(['css', 'img', 'js', 'libs']);
+
+      let htmlFolder = path.join(TEST, 'dist/done1/webserver'),
+          htmlFileInfo = fs.readdirSync(htmlFolder);
+      expect(htmlFileInfo).to.deep.equal(['index.html']);
+
+    });
+
+    it('=> copy files', function() {
+
+      let folder =  path.join(TEST, 'dist/done2');
+      let fileInfo = fs.readdirSync(folder);
+      expect(fileInfo).to.deep.equal(['css', 'dev', 'img', 'index.html', 'js', 'libs']);
+
+      let devfolder =  path.join(TEST, 'dist/done2/dev/');
+      let devFileInfo = fs.readdirSync(devfolder);
+      expect(devFileInfo).to.deep.equal(['cdn', 'webserver']);
+
+      let cdnFolder = path.join(TEST, 'dist/done2/dev/cdn'),
+          cdnFileInfo = fs.readdirSync(cdnFolder);
+      expect(cdnFileInfo).to.deep.equal(['css', 'img', 'js', 'libs']);
+
+      let htmlFolder = path.join(TEST, 'dist/done2/dev/webserver'),
+          htmlFileInfo = fs.readdirSync(htmlFolder);
+      expect(htmlFileInfo).to.deep.equal(['index.html']);
+
+    });
+
+});

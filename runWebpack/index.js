@@ -4,7 +4,7 @@ const fs = require('fs-extra'),
 	  async = require("async"),
 	  webpack = require('webpack'),
 	  path = require('path');
-	
+
 fs.removeSync(path.resolve('./test/dist/'));
 fs.removeSync(path.resolve('./test/pub/'));
 fs.removeSync(path.resolve('./test/dev/'));
@@ -18,7 +18,9 @@ var webpackConfig = [
 	require(basePath + '/emit1/webpack.config.js'),  // move fail
 	require(basePath + '/emit2/webpack.config.js'),  // copy fail
 	require(basePath + '/emit3/webpack.config.js'),  // move success
-	require(basePath + '/emit4/webpack.config.js'),  // copy success
+    require(basePath + '/emit4/webpack.config.js'),  // copy success
+    require(basePath + '/done1/webpack.config.js'),  // done move files
+    require(basePath + '/done2/webpack.config.js'),  // done copy files
 ];
 
 async.filter(webpackConfig, function(configPath, callback) {
