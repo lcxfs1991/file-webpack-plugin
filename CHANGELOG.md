@@ -1,5 +1,5 @@
 ## Changelog
-    * 1.2.1
+    * 1.2.2
         - add `del` action
         - fix options `ignore` issue
 	* 1.1.1

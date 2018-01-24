@@ -86,6 +86,7 @@ FileWebpackPlugin.prototype.processFiles = function(compiler, compilation, fileA
 
 	if (fileArray) {
 		fileArray.forEach((item) => {
+            item.options = item.options || {};
             item.options.cwd = item.options.cwd || compiler.context;
             item.to = item.to || '';
 
