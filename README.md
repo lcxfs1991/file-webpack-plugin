@@ -69,8 +69,8 @@ If you wanna see demos, you can checkout `test/src`. Then run `npm run pretest` 
     - Function, the funciton is called when webpack dispatch `emit` event which mean assets before emit. you can use `this.fs` and `this.glob` to use `fs-extra` and `glob` apis.
     - Array, each items should be object.
     	- from: [glob](https://www.npmjs.com/package/glob) pattern 
-    	- to: file destination folder
-    	- action: move => move files, copy => copy files
+    	- to: file destination folder, not required if `action = del`
+    	- action: move => move files, copy => copy files, del => remove files
     	- options: [glob options](https://www.npmjs.com/package/glob#options)
 
 - `after-emit`:
@@ -79,8 +79,8 @@ If you wanna see demos, you can checkout `test/src`. Then run `npm run pretest` 
     - Function, the funciton is called when webpack dispatch `after-emit` event which mean assets after emit. you can use `this.fs` and `this.glob` to use `fs-extra` and `glob` apis.
     - Array, each items should be object.
     	- from: [glob](https://www.npmjs.com/package/glob) pattern 
-    	- to: file destination folder
-    	- action: move => move files, copy => copy files
+    	- to: file destination folder, not required if `action = del`
+    	- action: move => move files, copy => copy files, del => remove files
     	- options: [glob options](https://www.npmjs.com/package/glob#options)
 
 - `done`:
@@ -89,6 +89,6 @@ If you wanna see demos, you can checkout `test/src`. Then run `npm run pretest` 
     - Function, the funciton is called when webpack dispatch `done` event which mean assets before emit. you can use `this.fs` and `this.glob` to use `fs-extra` and `glob` apis. 
     - Array, each items should be object.
     	- from: [glob](https://www.npmjs.com/package/glob) pattern 
-    	- to: file destination folder
-    	- action: move => move files, copy => copy files
+    	- to: file destination folder, not required if `action = del`
+    	- action: move => move files, copy => copy files, del => remove files
     	- options: [glob options](https://www.npmjs.com/package/glob#options)

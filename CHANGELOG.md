@@ -1,4 +1,7 @@
 ## Changelog
+    * 1.2.1
+        - add `del` action
+        - fix options `ignore` issue
 	* 1.1.1
 		- ensure file and folder created
 

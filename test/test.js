@@ -143,4 +143,28 @@ describe('done', function() {
 
     });
 
+    it('=> move files with sourcemap', function() {
+
+        let folder =  path.join(TEST, 'dist/done3');
+        let fileInfo = fs.readdirSync(folder);
+        expect(fileInfo).to.deep.equal(['cdn', 'webserver']);
+
+        let cdnFolder = path.join(TEST, 'dist/done3/cdn'),
+            cdnFileInfo = fs.readdirSync(cdnFolder);
+        expect(cdnFileInfo).to.deep.equal(['css', 'img', 'js', 'libs']);
+
+        let htmlFolder = path.join(TEST, 'dist/done3/webserver'),
+            htmlFileInfo = fs.readdirSync(htmlFolder);
+        expect(htmlFileInfo).to.deep.equal(['index.html']);
+
+        let cdnCssFolder = path.join(TEST, 'dist/done3/cdn/css/js'),
+            cdnCssInfo = fs.readdirSync(cdnCssFolder);
+        expect(cdnCssInfo).to.deep.equal(['index.css']);
+
+        let cdnJsFolder = path.join(TEST, 'dist/done3/cdn/js'),
+            cdnJsInfo = fs.readdirSync(cdnJsFolder);
+        expect(cdnJsInfo).to.deep.equal(['index.js']);
+
+      });
+
 });

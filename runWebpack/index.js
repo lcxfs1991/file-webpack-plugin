@@ -21,6 +21,7 @@ var webpackConfig = [
     require(basePath + '/emit4/webpack.config.js'),  // copy success
     require(basePath + '/done1/webpack.config.js'),  // done move files
     require(basePath + '/done2/webpack.config.js'),  // done copy files
+    require(basePath + '/done3/webpack.config.js'),  // done move files with sourcemap
 ];
 
 async.filter(webpackConfig, function(configPath, callback) {
