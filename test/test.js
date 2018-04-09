@@ -157,7 +157,7 @@ describe('done', function() {
             htmlFileInfo = fs.readdirSync(htmlFolder);
         expect(htmlFileInfo).to.deep.equal(['index.html']);
 
-        let cdnCssFolder = path.join(TEST, 'dist/done3/cdn/css/js'),
+        let cdnCssFolder = path.join(TEST, 'dist/done3/cdn/css'),
             cdnCssInfo = fs.readdirSync(cdnCssFolder);
         expect(cdnCssInfo).to.deep.equal(['index.css']);
 

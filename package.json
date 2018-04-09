@@ -1,6 +1,6 @@
 {
   "name": "file-webpack-plugin",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "offer extra file capacity for webpack",
   "main": "index.js",
   "scripts": {
@@ -23,29 +23,31 @@
   },
   "homepage": "https://github.com/lcxfs1991/file-webpack-plugin#readme",
   "dependencies": {
-    "chalk": "^2.1.0",
-    "fs-extra": "^4.0.1",
+    "chalk": "^2.3.2",
+    "fs-extra": "^5.0.0",
     "loader-utils": "^1.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "async": "^2.5.0",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
+    "async": "^2.6.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
-    "chai": "^4.1.1",
-    "copy-webpack-plugin-hash": "^4.0.5",
-    "css-loader": "^0.28.4",
-    "eslint": "^4.4.1",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
-    "html-loader": "^0.5.1",
-    "html-res-webpack-plugin": "^3.1.1",
-    "mocha": "^3.5.0",
+    "chai": "^4.1.2",
+    "copy-webpack-plugin-hash": "^6.0.0",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-res-webpack-plugin": "^4.0.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "mocha": "^5.0.5",
     "mocha-lcov-reporter": "^1.3.0",
-    "sinon": "^3.1.0",
-    "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9",
-    "webpack": "3.4.1"
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "sinon": "^4.5.0",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.5.0"
   }
 }

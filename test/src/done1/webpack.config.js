@@ -9,27 +9,29 @@ var webpack = require('webpack'),
 
 
 var HtmlResWebpackPlugin = require('html-res-webpack-plugin'),
-	ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+    UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
+    OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"),
     CopyWebpackPlugin = require('copy-webpack-plugin-hash'),
     FileWebpackPlugin = require('../../../index');
 
 module.exports = {
     context: config.path.src,
 	entry: {
-        'js/index': [path.join(config.path.src, "/done1/index")],
+        'index': [path.join(config.path.src, "/done1/index")],
     },
     output: {
         publicPath: config.defaultPath,
         path: path.join(config.path.dist + '/done1'),
-        filename: "[name].js",
+        filename: "js/[name].js",
         chunkFilename: "chunk/[name].js",
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js?$/,
                 loader: 'babel-loader',
-                query: {
+                options: {
                     cacheDirectory: false,
                     presets: [
                         'es2015',
@@ -39,17 +41,15 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                localIdentName: '[name]-[local]-[hash:base64:5]',
-                            }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            localIdentName: '[name]-[local]-[hash:base64:5]',
                         }
-                    ]
-                }),
+                    }
+                ]
             },
             {
                 test: /\.html$/,
@@ -64,9 +64,21 @@ module.exports = {
             },
         ]
     },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: true // set to true if you want JS source maps
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin({filename: "css/[name].css", disable: false}),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].css"
+        }),
         new CopyWebpackPlugin([
             {
                 from: config.path.src + '/done1/libs/',

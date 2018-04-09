@@ -51,7 +51,7 @@ function FileWebpackPlugin(options) {
  */
 FileWebpackPlugin.prototype.apply = function(compiler) {
 
-  	compiler.plugin("emit", (compilation, callback) => {
+    compiler.hooks.emit.tapAsync("emit", (compilation, callback) => {
   		this.emitCallback && this.emitCallback();
 
   		this.processFiles(compiler, compilation, this.emitArray);
@@ -60,15 +60,14 @@ FileWebpackPlugin.prototype.apply = function(compiler) {
 
 
   	// right after emit, files will be generated
-	compiler.plugin("after-emit", (compilation, callback) => {
+    compiler.hooks.afterEmit.tapAsync("after-emit", (compilation, callback) => {
 		this.afterEmitCallback && this.afterEmitCallback();
-
 		this.processFiles(compiler, compilation, this.afterEmitArray);
 	    callback();
 	});
 
 	// done
-	compiler.plugin("done", () => {
+	compiler.hooks.done.tap("done", () => {
         this.doneCallback && this.doneCallback();
 
         this.processFiles(compiler, null, this.doneArray);

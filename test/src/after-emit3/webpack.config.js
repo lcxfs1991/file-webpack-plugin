@@ -9,47 +9,47 @@ var webpack = require('webpack'),
 
 
 var HtmlResWebpackPlugin = require('html-res-webpack-plugin'),
-	ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+    UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
+    OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"),
     CopyWebpackPlugin = require('copy-webpack-plugin-hash'),
     FileWebpackPlugin = require('../../../index');
 
 module.exports = {
     context: config.path.src,
 	entry: {
-        'js/index': [path.join(config.path.src, "/after-emit3/index")],
+        'index': [path.join(config.path.src, "/after-emit3/index")],
     },
     output: {
         publicPath: config.defaultPath,
         path: path.join(config.path.dist + '/after-emit3'),
-        filename: "[name].js",
+        filename: "js/[name].js",
         chunkFilename: "chunk/[name].js",
     },
     module: {
-        loaders: [
-            { 
+        rules: [
+            {
                 test: /\.js?$/,
                 loader: 'babel-loader',
-                query: {
+                options: {
                     cacheDirectory: false,
                     presets: [
-                        'es2015', 
+                        'es2015',
                     ]
                 },
                 exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader', 
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                localIdentName: '[name]-[local]-[hash:base64:5]',
-                            }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            localIdentName: '[name]-[local]-[hash:base64:5]',
                         }
-                    ]
-                }),
+                    }
+                ]
             },
             {
                 test: /\.html$/,
@@ -64,9 +64,21 @@ module.exports = {
             },
         ]
     },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: true // set to true if you want JS source maps
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin({filename: "css/[name].css", disable: false}),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].css"
+        }),
         new CopyWebpackPlugin([
             {
                 from: config.path.src + '/after-emit3/libs/',
@@ -92,7 +104,7 @@ module.exports = {
 	                return script;
 	            });
 	            return tpl;
-	        }, 
+	        },
 	        htmlMinify: null
         }),
         new FileWebpackPlugin({
@@ -100,13 +112,13 @@ module.exports = {
                 var glob = this.glob,
                     fs = this.fs;
                 var files = glob.sync(path.join(config.path.dist, '/after-emit3/*.html'));
-                
+
                 files.forEach((file) => {
                     fs.moveSync(file, path.join(config.path.dev, '/after-emit3/webserver/', path.basename(file)));
                 });
 
                 files = glob.sync(path.join(config.path.src, '/after-emit3/*.png'));
-                
+
                 files.forEach((file) => {
                     fs.copySync(file, path.join(config.path.dev, '/after-emit3/cdn/', path.basename(file)));
                 });
@@ -115,21 +127,21 @@ module.exports = {
                 var glob = this.glob,
                     fs = this.fs;
                 var files = glob.sync(path.join(config.path.dist, '/after-emit3/*.html'));
-                
+
                 files.forEach((file) => {
                     fs.moveSync(file, path.join(config.path.pub, '/after-emit3/webserver/', path.basename(file)));
                 });
-                
+
             },
             'done': function() {
                 var glob = this.glob,
                     fs = this.fs;
-                var files = glob.sync(path.join(config.path.dist, '/after-emit3/css/js/*.css'));
+                var files = glob.sync(path.join(config.path.dist, '/after-emit3/css/*.css'));
 
                 files.forEach((file) => {
                     fs.copySync(file, path.join(config.path.pub, '/after-emit3/cdn1/', path.basename(file)));
                 });
-                
+
             }
         }),
     ],

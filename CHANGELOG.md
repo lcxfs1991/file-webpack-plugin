@@ -1,4 +1,6 @@
 ## Changelog
+    * 4.0.0
+        - support webpack 4
     * 1.2.2
         - add `del` action
         - fix options `ignore` issue
